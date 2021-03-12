@@ -1,17 +1,17 @@
 package `in`.iot.lab.aco
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.BatteryManager
-import android.os.Handler
+import kotlin.math.floor
 
 
 class PowerConnectionReceiver(private val ToMatch: Float) : BroadcastReceiver() {
 
     var bluetoothMessage = "stop"
-
     @SuppressLint("SetTextI18n")
     override fun onReceive(context: Context, batteryStatus: Intent) {
         val status: Int = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
@@ -21,16 +21,22 @@ class PowerConnectionReceiver(private val ToMatch: Float) : BroadcastReceiver() 
         val chargePlug: Int = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: -1
         val acCharge: Boolean = chargePlug == BatteryManager.BATTERY_PLUGGED_AC
 
-        val batteryPct: Float = batteryStatus.let { intent ->
+        val batteryPct: Double = batteryStatus.let { intent ->
             val level: Int = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
             val scale: Int = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-            level * 100 / scale.toFloat()
+            floor(level * 100 / scale.toDouble())
         }
-
         if(batteryPct >= ToMatch){
-            context.stopService(Intent(context, ServiceStatusUpdate::class.java))
-            val temp = BluetoothManager()
-            temp.send(bluetoothMessage)
+            if(isCharging) {
+                val temp = BluetoothManager()
+                temp.send(bluetoothMessage)
+                context.sendBroadcast(Intent("CHARGE DONE"));
+                context.unregisterReceiver(this)
+            }
+            else {
+                context.sendBroadcast(Intent("NOT CHARGING"));
+                context.unregisterReceiver(this)
+            }
         }
     }
 }

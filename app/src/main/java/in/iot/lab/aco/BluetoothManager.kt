@@ -1,13 +1,8 @@
 package `in`.iot.lab.aco
 
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
 import java.nio.charset.Charset
 import java.util.*
 

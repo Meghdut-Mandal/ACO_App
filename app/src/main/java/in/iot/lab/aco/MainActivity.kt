@@ -1,11 +1,9 @@
 package `in`.iot.lab.aco
 
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.content.*
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         btn.setOnClickListener {
             actionOnService(Actions.START)
         }
@@ -25,6 +24,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun actionOnService(action: Actions) {
+        if(getServiceState(applicationContext)==ServiceState.STOPPED && action == Actions.STOP) {
+            Toast.makeText(applicationContext,"Service not running!",Toast.LENGTH_SHORT).show()
+            return
+        }
+        else if(getServiceState(applicationContext)==ServiceState.STARTED && action == Actions.START) {
+            Toast.makeText(applicationContext,"Service already running!",Toast.LENGTH_SHORT).show()
+            return
+        }
         val mIntent = Intent(this, ServiceStatusUpdate::class.java)
         val txt:String = txt.text.toString()
         mIntent.putExtra("val", txt)
