@@ -10,51 +10,133 @@
     android:background="@color/white">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp">
-    <TextView
-        android:id="@+id/textBattery"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="Enter Battery Percentage: "
-        android:textSize="23sp"
-        android:textColor="@color/black"
-        android:layout_marginEnd="10dp"
-        android:layout_alignParentStart="true" />
 
-    <EditText
-        android:id="@+id/txt"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_toEndOf="@id/textBattery"
-        android:layout_alignParentEnd="true"
-        android:text="100"
-        android:gravity="center"
-        android:textSize="23sp"
-        android:textColor="@color/black"
-        android:inputType="number"
-        />
+            <TextView
+                android:id="@+id/deviceControlHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="IoT Device Control"
+                android:textSize="23sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentStart="true" />
+            <Button
+                android:id="@+id/startDeviceBtn"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:text="Start Device"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/deviceControlHeader"
+                />
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Confirm"
-        android:layout_below="@id/textBattery"
-        />
+            <Button
+                android:id="@+id/stopDeviceBtn"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:text="Stop Device"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/deviceControlHeader"
+                />
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/stopBtn"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
+
+        <TextView
+            android:id="@+id/bluetoothControlHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bluetooth Control"
+            android:textSize="23sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentStart="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bluetoothControlHeader"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/bluetoothStatusText"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Status: Turned Off"
+                android:gravity="center_vertical"
+                android:textSize="23sp"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/turnOnBluetooth"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:text="Turn On"/>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/batteryLayout"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Stop"
-        android:layout_below="@id/btn"
-        />
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="40dp">
+            <TextView
+                android:id="@+id/textBattery"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Enter Battery Percentage: "
+                android:textSize="23sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:id="@+id/txt"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_toEndOf="@id/textBattery"
+                android:layout_alignParentEnd="true"
+                android:text="100"
+                android:gravity="center"
+                android:textSize="23sp"
+                android:textColor="@color/black"
+                android:inputType="number"
+                />
+
+            <Button
+                android:id="@+id/confirmBtn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Start Service"
+                android:layout_below="@id/textBattery"
+                android:layout_alignParentStart="true"
+                />
+
+            <Button
+                android:id="@+id/stopBtn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Stop Service"
+                android:layout_below="@id/textBattery"
+                android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 </LinearLayout>

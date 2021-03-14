@@ -11,12 +11,10 @@ import kotlin.math.floor
 
 class PowerConnectionReceiver(private val ToMatch: Float) : BroadcastReceiver() {
 
-    var bluetoothMessage = "stop"
     @SuppressLint("SetTextI18n")
     override fun onReceive(context: Context, batteryStatus: Intent) {
         val status: Int = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
-        val isCharging: Boolean = status == BatteryManager.BATTERY_STATUS_CHARGING
-                || status == BatteryManager.BATTERY_STATUS_FULL
+        val isCharging: Boolean = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL
 
         val chargePlug: Int = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: -1
         val acCharge: Boolean = chargePlug == BatteryManager.BATTERY_PLUGGED_AC
@@ -29,7 +27,7 @@ class PowerConnectionReceiver(private val ToMatch: Float) : BroadcastReceiver() 
         if(batteryPct >= ToMatch){
             if(isCharging) {
                 val temp = BluetoothManager()
-                temp.send(bluetoothMessage)
+                temp.send(0)
                 context.sendBroadcast(Intent("CHARGE DONE"));
                 context.unregisterReceiver(this)
             }

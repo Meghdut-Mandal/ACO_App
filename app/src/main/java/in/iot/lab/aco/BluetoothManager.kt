@@ -9,7 +9,8 @@ import java.util.*
 
 class BluetoothManager {
 
-    fun send(text: String) {
+    private val deviceName: String = "HC-05"
+    fun send(text: Int) {
         val adapter = BluetoothAdapter.getDefaultAdapter();
         val pairedDevices = adapter.bondedDevices
         val uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
@@ -17,8 +18,9 @@ class BluetoothManager {
             for (device in pairedDevices) {
                 var s = device.name
                 Log.i("AOC_APP",device.name)
-                if (device.name.equals("hc05", ignoreCase = true)) {
+                if (device.name.equals(deviceName, ignoreCase = true)) {
                     Thread {
+                        Log.i("AOC_APP","Sending")
                         val socket = device.createInsecureRfcommSocketToServiceRecord(uuid)
                         val clazz = socket.remoteDevice.javaClass
                         val paramTypes = arrayOf<Class<*>>(Integer.TYPE)
@@ -27,7 +29,7 @@ class BluetoothManager {
                         try {
                             fallbackSocket.connect()
                             val stream = fallbackSocket.outputStream
-                            stream.write(text.toByteArray(Charset.forName("UTF-8")))
+                            stream.write(text)
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
